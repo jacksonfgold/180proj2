@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun with Filters and Frequencies - CS180</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .image-title {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Fun with Filters and Frequencies</h1>
+        <h2>Jackson Gold</h2>
+
+        <div class="section">
+            <h2>Introduction</h2>
+            <p>This project examines how frequency manipulation can be used to enhance and merge images in innovative ways. Techniques like boosting high frequencies make images appear sharper by emphasizing fine details, while basic filtering methods help identify edges by detecting changes in pixel values. We also explore creating hybrid images by combining detailed, high-frequency elements from one image with the smoother, low-frequency areas of another. Finally, Gaussian and Laplacian stacks are utilized to blend images across multiple frequency layers, enabling seamless and natural-looking transitions.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Part 1: Fun with Filters</h2>
+
+            <h3>1.1: Finite Difference Operator</h3>
+            <p>We use finite difference operators to detect edges by convolving the image with <code>D_x</code> and
+                <code>D_y</code>. The results are shown below:</p>
+            
+            <div class="image-title">Original Cameraman Image</div>
+            <img src="outputs/camera_original_image.png" alt="Cameraman Image">
+
+            <div class="image-title">Partial Derivative in X Direction</div>
+            <img src="outputs/I_x.png" alt="Partial Derivative in X">
+
+            <div class="image-title">Partial Derivative in Y Direction</div>
+            <img src="outputs/I_y.png" alt="Partial Derivative in Y">
+
+            <div class="image-title">Gradient Magnitude Image</div>
+            <img src="outputs/grad_mag.png" alt="Gradient Magnitude">
+
+            <p>By binarizing the gradient magnitude, we suppress noise and highlight real edges, as shown below:</p>
+
+            <div class="image-title">Binarized Gradient Image</div>
+            <img src="outputs/edge_image.png" alt="Binarized Gradient Image">
+
+            <p><strong>Observations:</strong> The threshold value is crucial in balancing noise reduction and edge
+                visibility. A value of 0.09 was used</p>
+
+            <h3>1.2: Derivative of Gaussian (DoG) Filter</h3>
+            <p>The DoG filter combines Gaussian smoothing with finite difference operators, resulting in less noise
+                compared to the previous approach.</p>
+
+            <div class="image-title">Blurred Image with Gaussian Filter</div>
+            <img src="outputs/blurred_image.png" alt="Blurred Image with Gaussian">
+
+            <div class="image-title">DoG Filter in X Direction</div>
+            <img src="outputs/I_x_blurred.png" alt="DoG in X">
+
+            <div class="image-title">DoG Filter in Y Direction</div>
+            <img src="outputs/I_y_blurred.png" alt="DoG in Y">
+
+            <div class="image-title">Gradient Magnitude Image</div>
+            <img src="outputs/grad_mag_blurred.png" alt="Gradient Magnitude">
+
+            <div class="image-title">Binarized Gradient Image</div>
+            <img src="outputs/edge_image_blurred.png" alt="Binarized Gradient Image">
+
+            <div class="image-title">Dog Filter X</div>
+            <img src="outputs/dog_filter_x.png" alt="Gradient Magnitude">
+
+            <div class="image-title">Dog Filter Y</div>
+            <img src="outputs/dog_filter_y.png" alt="Binarized Gradient Image">
+
+            <p><strong>Observations:</strong> The Gaussian filter smooths noise while retaining significant edges.</p>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Fun with Frequencies</h2>
+
+            <h3>2.1: Image "Sharpening"</h3>
+            <p></p>
+
+            <div class="image-title">Original Blurry Image - Taj Mahal</div>
+            <img src="outputs/taj.jpg" alt="Original Blurry Taj Mahal Image">
+
+            <div class="image-title">Sharpened Image - Taj Mahal</div>
+            <img src="outputs/taj_sharpened_image.png" alt="Sharpened Taj Mahal Image">
+
+            <div class="image-title">Convolution Sharpened Image - Taj Mahal</div>
+            <img src="outputs/taj_sharpened_image_conv.png" alt="Sharpened Taj Mahal Image">
+
+            <div class="image-title">Original Blurry Image - Canyon Country Store</div>
+            <img src="outputs/canyon.jpeg" alt="Original Blurry Image of Your Choice">
+
+            <div class="image-title">Sharpened Image - Canyon Country Store</div>
+            <img src="outputs/canyon_sharpened_image.png" alt="Sharpened Image of Your Choice">
+
+            <div class="image-title">Convolution Sharpened Image - Canyon Country Store</div>
+            <img src="outputs/canyon_sharpened_image_conv.png" alt="Sharpened Image of Your Choice">
+
+            <div class="image-title">Original Sharp Image</div>
+            <img src="outputs/landscape.jpg" alt="Original Sharp Image">
+
+            <div class="image-title">Blurred Version of Sharp Image</div>
+            <img src="outputs/blurred_image_sharp.png" alt="Blurred Version of Sharp Image">
+
+            <div class="image-title">Sharpened After Blur</div>
+            <img src="outputs/sharpened_image.png" alt="Sharpened After Blur Image">
+
+            <p><strong>Observations:</strong> When sharpening the Taj Mahal and other images, the process effectively enhances fine details and restores clarity. However, sharpening a previously sharp image that was blurred shows how the technique recovers some sharpness but may not fully match the original, demonstrating the limitations and effects of noise amplification. It does not look much like the original, however you can see some sharpening specifically in the edges of objects.</p>
+
+
+            <h3>2.2: Hybrid Images</h3>
+            <p>Hybrid images blend high frequencies from one image with low frequencies from another, creating
+                a visually dynamic result that changes with distance.</p>
+
+            <div class="image-title">Hybrid Image 1 - Derek</div>
+            <img src="outputs/DerekPicture.jpg" alt="Hybrid Image 1">
+
+            <div class="image-title">Hybrid Image 2 - Nutmeg</div>
+            <img src="outputs/nutmeg.jpg" alt="Hybrid Image 2">
+
+            <div class="image-title">Result - Nutmeg and Derek</div>
+            <img src="outputs/hybrid_image.png" alt="Hybrid Image 2">
+
+            <p>Hybrid images blend high frequencies from one image with low frequencies from another, creating
+                a visually dynamic result that changes with distance.</p>
+
+            <div class="image-title">Hybrid Image 1 - Guitar</div>
+            <img src="outputs/guitar.jpg" alt="Hybrid Image 1">
+
+            <div class="image-title">Hybrid Image 2 - Turtle</div>
+            <img src="outputs/turtle.jpeg" alt="Hybrid Image 2">
+
+            <div class="image-title">Result - Turtle Guitar</div>
+            <img src="outputs/turtle_guitar.png" alt="Hybrid Image 2">
+
+            <p>Hybrid images blend high frequencies from one image with low frequencies from another, creating
+                a visually dynamic result that changes with distance.</p>
+
+            <div class="image-title">Hybrid Image 1 - Tootsie</div>
+            <img src="outputs/tootsie.JPEG" alt="Hybrid Image 1">
+
+            <div class="image-title">Hybrid Image 2 - Joey</div>
+            <img src="outputs/joey.jpg" alt="Hybrid Image 2">
+
+            <div class="image-title">Result - Tootsie and Joey</div>
+            <img src="outputs/dog_human.png" alt="Hybrid Image 2">
+
+            <div class="image-title">Fourier - Tootsie</div>
+            <img src="outputs/im2_fourier.png" alt="Hybrid Image 1">
+
+            <div class="image-title">Fourier - Joey</div>
+            <img src="outputs/im1_fourier.png" alt="Hybrid Image 2">
+
+            <div class="image-title">Fourier Filter - Tootsie</div>
+            <img src="outputs/im1_low_fourier.png" alt="Hybrid Image 2">
+
+            <div class="image-title">Fourier Filter - Joey</div>
+            <img src="outputs/im2_high_fourier.png" alt="Hybrid Image 2">
+            
+            <div class="image-title">Fourier - Hybrid</div>
+            <img src="outputs/hybrid_fourier.png" alt="Hybrid Image 2">
+
+
+
+
+            <p><strong>Observations:</strong> Alignment and filter cutoffs significantly affect the hybrid perception.</p>
+
+            <h3>2.3: Gaussian and Laplacian Stacks</h3>
+            <p>Gaussian and Laplacian stacks help prepare images for blending by handling different frequency
+                bands separately.</p>
+
+            <div class="image-title">Table Recreation</div>
+            <img src="outputs/2.3.png" alt="Gaussian Stack">
+
+    
+            <p><strong>Observations:</strong> These stacks allow for smooth transitions in image blending.</p>
+
+            <h3>2.4: Multiresolution Blending (Oraple)</h3>
+            <p>Blending with Gaussian and Laplacian stacks creates a smooth transition between images, such as the
+                iconic apple-orange blend. This is the one I definitely spent the longest on. In order to create the masks, I created a drawing tool with cv2 where you can draw over one of the images after spending a very long time creating masks that didn't align.</p>
+
+            <div class="image-title">Oraple (Apple + Orange Blend)</div>
+            <img src="outputs/orple.png" alt="Oraple Image">
+
+            <div class="image-title">Earoon (Earth + Moon Blend)</div>
+            <img src="outputs/earth_moon1.png" alt="Oraple Image">
+
+
+            <p>Ok I spent a long time trying to find an image of a goat and snake that would line up properly, this is the closest I got...</p>
+            <div class="image-title">Snoat (Snake + Goat Blend)</div>
+            <img src="outputs/snake_goat.png" alt="Oraple Image">
+
+            <p><strong>Observations:</strong> Blending works best with well-aligned images and proper mask transitions.</p>
+        </div>
+
+        <p>Conclusion: Overall, this project was a mix of quick wins and a few time-consuming challenges. I started with edge detection using finite difference operators, then used Gaussian filters to smooth the results and reduce noise. Parts like sharpening images and creating hybrid images in Part 2 were interesting and mostly straightforward, but I hit a roadblock in Part 2.2 with VS Code debugging issues, which took way longer than expected to sort out. Part 2.4 was another tough spot; building the Gaussian and Laplacian stacks from scratch and tweaking the multiresolution blending took much more effort than I anticipated. While these parts dragged on, the other sections went more smoothly, and in the end, seeing the final results made all the debugging and extra work feel worthwhile...maybe.  </p>
+
+    </div>
+</body>
+
+</html>
